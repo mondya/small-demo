@@ -5,7 +5,6 @@ import com.xhh.smalldemo.pojo.User;
 import com.xhh.smalldemo.service.UserService;
 import com.xhh.smalldemo.utils.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
