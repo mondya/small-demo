@@ -1,5 +1,6 @@
 package com.xhh.smalldemo.controller;
 
+import com.xhh.smalldemo.utils.ToStringUtils;
 import com.xhh.smalldemo.vo.UserVO;
 import com.xhh.smalldemo.pojo.User;
 import com.xhh.smalldemo.service.UserService;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 public class TestController {
@@ -119,9 +119,7 @@ public class TestController {
         String s = "";
         List<Long> idList = new ArrayList<Long>();
         if (StringUtils.hasLength(ids)) {
-            String[] idStr = ids.split(",");
-            List<String> strings = Arrays.asList(idStr);
-            idList = strings.stream().map(Long::parseLong).collect(Collectors.toList());
+            idList = ToStringUtils.stringIdsToListLong(ids);
             s = userService.deleteBatch(idList);
         }
         return s;

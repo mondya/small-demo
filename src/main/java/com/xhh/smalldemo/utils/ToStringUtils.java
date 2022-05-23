@@ -14,7 +14,7 @@ public class ToStringUtils {
      * @param ids
      * @return
      */
-    public static List<Long> stringIdsToListLong(String ids){
+     public static List<Long> stringIdsToListLong(String ids){
         List<Long> idList = new ArrayList<>();
         if (ids != null && !ids.equals("null")){
             String[] split = ids.split(",");
