@@ -4,11 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.xhh.smalldemo.utils.TimeUtil;
 import com.xhh.smalldemo.vo.UserVO;
 import com.xhh.smalldemo.mapper.UserMapper;
 import com.xhh.smalldemo.pojo.User;
 import com.xhh.smalldemo.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -62,9 +62,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public String addUser(UserVO userVO) {
         try {
             User user = new User();
-            user.setName(userVO.getName());
-            user.setAge(userVO.getAge());
-            user.setEmail(userVO.getEmail());
+            BeanUtils.copyProperties(userVO, user);
             user.setDateCreated(LocalDateTime.now());
             user.setLastUpdated(LocalDateTime.now());
             user.setStatus((byte) 1);
@@ -92,9 +90,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public String saveUser(UserVO userVO) {
         try {
             User user = new User();
-            user.setName(userVO.getName());
-            user.setAge(userVO.getAge());
-            user.setEmail(userVO.getEmail());
+            BeanUtils.copyProperties(userVO, user);
             user.setDateCreated(LocalDateTime.now());
             user.setLastUpdated(LocalDateTime.now()); 
             user.setStatus((byte) 1);
