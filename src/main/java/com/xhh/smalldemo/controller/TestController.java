@@ -41,9 +41,9 @@ public class TestController {
 
     @PutMapping("/update")
     ResultVO update(@RequestParam("id") Long id,
-                  @RequestParam("name") String name,
-                  @RequestParam("age") Integer age,
-                  @RequestParam("email") String email) {
+                    @RequestParam("name") String name,
+                    @RequestParam("age") Integer age,
+                    @RequestParam("email") String email) {
         ResultVO resultVO = new ResultVO();
         resultVO.setStatus(1);
         User user = userService.getUserById(id);
@@ -75,9 +75,9 @@ public class TestController {
         }
         try {
             userService.updateByUserId(user);
-        } catch (Exception e){
+        } catch (Exception e) {
             resultVO = resultVO.failure();
-            log.info("更新失败 id:{}",id);
+            log.info("更新失败 id:{},exception:{}", id, e);
         }
         return resultVO;
     }
@@ -122,9 +122,9 @@ public class TestController {
         try {
             resultVO.setStatus(1);
             userService.addUser(userVO);
-        } catch (Exception e){
+        } catch (Exception e) {
             resultVO = resultVO.failure();
-            log.error("添加失败,userVO:{}",userVO);
+            log.error("添加失败,userVO:{}", userVO);
         }
         return resultVO;
     }
@@ -140,9 +140,9 @@ public class TestController {
         try {
             userService.deleteUserById(id);
             resultVO = resultVO.success();
-        } catch (Exception e){
+        } catch (Exception e) {
             resultVO = resultVO.failure();
-            log.error("删除人员失败,id{},message:{}",id,e);
+            log.error("删除人员失败,id{},message:{}", id, e);
         }
         return resultVO;
     }
@@ -156,10 +156,10 @@ public class TestController {
                 idList = ToStringUtils.stringIdsToListLong(ids);
                 userService.deleteBatch(idList);
                 resultVO = resultVO.success();
-            }   
-        } catch (Exception e){
+            }
+        } catch (Exception e) {
             resultVO = resultVO.failure();
-            log.error("删除失败,ids:{},exception:{}",ids, e);
+            log.error("删除失败,ids:{},exception:{}", ids, e);
         }
         return resultVO;
     }
