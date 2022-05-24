@@ -10,7 +10,7 @@ public class ToStringUtils {
 
 
     /**
-     * String ids cast to  List
+     * String ids cast to Long
      * @param ids
      * @return
      */

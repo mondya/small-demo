@@ -44,10 +44,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public String updateByUserId(User user) {
+    public void updateByUserId(User user) {
         try {
             userMapper.updateById(user);
-            return "success";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -64,7 +63,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public String addUser(UserVO userVO) {
+    public void addUser(UserVO userVO) {
         try {
             User user = new User();
             BeanUtils.copyProperties(userVO, user);
@@ -72,20 +71,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             user.setLastUpdated(LocalDateTime.now());
             user.setStatus((byte) 1);
             userMapper.insert(user);
-            return "success";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public String deleteUserById(Long id) {
+    public void deleteUserById(Long id) {
         try {
             User user = userMapper.selectById(id);
             user.setStatus((byte) 0);
             user.setLastUpdated(LocalDateTime.now());
             userMapper.updateById(user);
-            return "success";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

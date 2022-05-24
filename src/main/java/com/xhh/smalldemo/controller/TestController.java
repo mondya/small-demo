@@ -6,6 +6,7 @@ import com.xhh.smalldemo.pojo.User;
 import com.xhh.smalldemo.service.UserService;
 import com.xhh.smalldemo.utils.ObjectUtil;
 import com.xhh.smalldemo.vo.common.ResultVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Slf4j
 @RestController
+@RequestMapping("/1.0/api")
 public class TestController {
 
     @Autowired
@@ -37,20 +40,23 @@ public class TestController {
     }
 
     @PutMapping("/update")
-    String update(@RequestParam("id") Long id,
+    ResultVO update(@RequestParam("id") Long id,
                   @RequestParam("name") String name,
                   @RequestParam("age") Integer age,
                   @RequestParam("email") String email) {
+        ResultVO resultVO = new ResultVO();
+        resultVO.setStatus(1);
         User user = userService.getUserById(id);
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
         map.put("age", age);
         map.put("email", email);
         if (ObjectUtils.isEmpty(user)) {
-            return "error";
+            return resultVO.failure();
         } else {
             if (ObjectUtil.checkChange(user, map)) {
-                return "不做更改success";
+                resultVO.setMessage("不做更改，success");
+                return resultVO;
             }
 
             if (name != null && !name.equals("")) {
@@ -67,7 +73,13 @@ public class TestController {
             user.setLastUpdated(LocalDateTime.now());
 
         }
-        return userService.updateByUserId(user);
+        try {
+            userService.updateByUserId(user);
+        } catch (Exception e){
+            resultVO = resultVO.failure();
+            log.info("更新失败 id:{}",id);
+        }
+        return resultVO;
     }
 
     @PutMapping("/updateV2")
@@ -105,8 +117,16 @@ public class TestController {
     }
 
     @PostMapping(value = "/save")
-    String save(@RequestBody UserVO userVO) {
-        return userService.addUser(userVO);
+    ResultVO save(@RequestBody UserVO userVO) {
+        ResultVO resultVO = new ResultVO();
+        try {
+            resultVO.setStatus(1);
+            userService.addUser(userVO);
+        } catch (Exception e){
+            resultVO = resultVO.failure();
+            log.error("添加失败,userVO:{}",userVO);
+        }
+        return resultVO;
     }
 
     @PostMapping("/add")
@@ -115,8 +135,16 @@ public class TestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    String delete(@PathVariable("id") Long id) {
-        return userService.deleteUserById(id);
+    ResultVO delete(@PathVariable("id") Long id) {
+        ResultVO resultVO = new ResultVO();
+        try {
+            userService.deleteUserById(id);
+            resultVO = resultVO.success();
+        } catch (Exception e){
+            resultVO = resultVO.failure();
+            log.error("删除人员失败,id{},message:{}",id,e);
+        }
+        return resultVO;
     }
 
     @DeleteMapping("/delete")

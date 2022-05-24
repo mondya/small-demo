@@ -10,5 +10,19 @@ public class ResultVO implements Serializable {
     int status;
     int code;
     String message;
-    Map<String,Object> result;
+    Map<String, Object> result;
+
+    public ResultVO success() {
+        ResultVO resultVO = new ResultVO();
+        resultVO.setStatus(1);
+        resultVO.setMessage("success");
+        return resultVO;
+    }
+
+    public ResultVO failure() {
+        ResultVO resultVO = new ResultVO();
+        resultVO.setStatus(0);
+        resultVO.setMessage("failed");
+        return resultVO;
+    }
 }

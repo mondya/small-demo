@@ -12,13 +12,13 @@ public interface UserService {
 
     User getUserById(Long id);
 
-    String updateByUserId(User user);
+    void updateByUserId(User user);
     
     String updateByUserIdV2(Long id,String name,Integer age,String email);
 
-    String addUser(UserVO userVO);
+    void addUser(UserVO userVO);
 
-    String deleteUserById(Long id);
+    void deleteUserById(Long id);
 
     String saveUser(UserVO userVO);
     
