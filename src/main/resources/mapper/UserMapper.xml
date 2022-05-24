@@ -12,5 +12,4 @@
         UPDATE user SET age = #{age, jdbcType = INTEGER}, name = #{name, jdbcType = VARCHAR}, email = #{email, jdbcType = VARCHAR} , last_updated = NOW() WHERE id = #{id, jdbcType = BIGINT}
     </update>
     
-    <select id=""
 </mapper>
