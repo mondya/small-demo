@@ -23,11 +23,6 @@ public class TestController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/hello")
-    public String hello() {
-        return "helloWorld你好";
-    }
-
 
     @RequestMapping("/users")
     ResultVO getAllUser(@RequestParam(value = "p", required = false, defaultValue = "1") int p,
@@ -83,20 +78,21 @@ public class TestController {
     }
 
     @PutMapping("/updateV2")
-    String updateV2(@RequestParam("id") Long id,
+    ResultVO updateV2(@RequestParam("id") Long id,
                     @RequestParam("name") String name,
                     @RequestParam("age") Integer age,
                     @RequestParam("email") String email) {
+        ResultVO resultVO = new ResultVO();
         User user = userService.getUserById(id);
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
         map.put("age", age);
         map.put("email", email);
         if (ObjectUtils.isEmpty(user)) {
-            return "error";
+            return resultVO.failure();
         } else {
             if (ObjectUtil.checkChange(user, map)) {
-                return "不做更改success";
+                return resultVO.success();
             }
 
             if (name != null && !name.equals("")) {
@@ -113,7 +109,15 @@ public class TestController {
             user.setLastUpdated(LocalDateTime.now());
 
         }
-        return userService.updateByUserIdV2(id, name, age, email);
+        try {
+            resultVO.setStatus(1);
+            userService.updateByUserIdV2(id, name, age, email);
+        } catch (Exception e){
+            resultVO.setStatus(0);
+            log.error("update failed,exception:{},id:{}",e,id);
+        }
+        
+        return resultVO;
     }
 
     @PostMapping(value = "/save")

@@ -53,10 +53,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public String updateByUserIdV2(Long id, String name, Integer age, String email) {
+    public void updateByUserIdV2(Long id, String name, Integer age, String email) {
         try {
             userMapper.updateUserAgeAndNameAndEmail(id, age, name, email);
-            return "success";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
