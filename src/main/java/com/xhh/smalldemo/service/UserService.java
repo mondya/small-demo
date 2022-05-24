@@ -22,5 +22,5 @@ public interface UserService {
 
     String saveUser(UserVO userVO);
     
-    String deleteBatch(List<Long> ids);
+    void deleteBatch(List<Long> ids);
 }

@@ -104,11 +104,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public String deleteBatch(List<Long> ids) {
+    public void deleteBatch(List<Long> ids) {
         try {
             List<User> users = userMapper.selectList(new QueryWrapper<User>().eq("status", (byte) 1).in("id", ids));
             if (CollectionUtils.isEmpty(users)) {
-                return "success";
+                return;
             }
             if (!CollectionUtils.isEmpty(users)) {
                 users.forEach((User u) -> {
@@ -117,7 +117,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 });
             }
             super.saveOrUpdateBatch(users);
-            return "success";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

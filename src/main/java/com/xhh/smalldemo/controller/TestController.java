@@ -148,14 +148,20 @@ public class TestController {
     }
 
     @DeleteMapping("/delete")
-    String batchDelete(@RequestParam("ids") String ids) {
-        String s = "";
-        List<Long> idList = new ArrayList<Long>();
-        if (StringUtils.hasLength(ids)) {
-            idList = ToStringUtils.stringIdsToListLong(ids);
-            s = userService.deleteBatch(idList);
+    ResultVO batchDelete(@RequestParam("ids") String ids) {
+        ResultVO resultVO = new ResultVO();
+        try {
+            List<Long> idList = new ArrayList<Long>();
+            if (StringUtils.hasLength(ids)) {
+                idList = ToStringUtils.stringIdsToListLong(ids);
+                userService.deleteBatch(idList);
+                resultVO = resultVO.success();
+            }   
+        } catch (Exception e){
+            resultVO = resultVO.failure();
+            log.error("删除失败,ids:{},exception:{}",ids, e);
         }
-        return s;
+        return resultVO;
     }
 
 
