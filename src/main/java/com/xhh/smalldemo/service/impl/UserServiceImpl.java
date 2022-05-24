@@ -15,7 +15,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
@@ -25,12 +27,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
     @Override
-    public List<User> getAllUser(int p, int s) {
-        Page<User> userPage = new Page<User>(p, s);
-        List<User> users = new ArrayList<>();
-        IPage<User> userIPageList = userMapper.selectPage(userPage, new QueryWrapper<User>().eq("status", (byte) 1));
-        users = userIPageList.getRecords();
-        return users;
+    public Map<String, Object> getAllUserPage(int p, int s) {
+        Map<String, Object> map = new HashMap<>();
+        Page<User> page = new Page<User>(p, s);
+        IPage<User> pageList = userMapper.selectPage(page, new QueryWrapper<User>().eq("status", (byte) 1));
+        List<User> records = pageList.getRecords();
+        long total = pageList.getTotal();
+        map.put("list", records);
+        map.put("total", total);
+        return map;
     }
 
     @Override
@@ -53,7 +58,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         try {
             userMapper.updateUserAgeAndNameAndEmail(id, age, name, email);
             return "success";
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -92,7 +97,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             User user = new User();
             BeanUtils.copyProperties(userVO, user);
             user.setDateCreated(LocalDateTime.now());
-            user.setLastUpdated(LocalDateTime.now()); 
+            user.setLastUpdated(LocalDateTime.now());
             user.setStatus((byte) 1);
             userMapper.addUser(user);
             return "success";
@@ -120,6 +125,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new RuntimeException(e);
         }
     }
-    
-    
+
+
 }

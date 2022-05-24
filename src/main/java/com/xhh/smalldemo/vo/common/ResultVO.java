@@ -1,0 +1,14 @@
+package com.xhh.smalldemo.vo.common;
+
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Map;
+
+@Data
+public class ResultVO implements Serializable {
+    int status;
+    int code;
+    String message;
+    Map<String,Object> result;
+}

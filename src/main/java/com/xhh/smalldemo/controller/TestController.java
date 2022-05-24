@@ -5,6 +5,7 @@ import com.xhh.smalldemo.vo.UserVO;
 import com.xhh.smalldemo.pojo.User;
 import com.xhh.smalldemo.service.UserService;
 import com.xhh.smalldemo.utils.ObjectUtil;
+import com.xhh.smalldemo.vo.common.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -26,9 +27,13 @@ public class TestController {
 
 
     @RequestMapping("/users")
-    List<User> getAllUser(@RequestParam(value = "p", required = false, defaultValue = "1") int p,
-                          @RequestParam(value = "s", required = false, defaultValue = "30") int s) {
-        return userService.getAllUser(p, s);
+    ResultVO getAllUser(@RequestParam(value = "p", required = false, defaultValue = "1") int p,
+                        @RequestParam(value = "s", required = false, defaultValue = "30") int s) {
+        ResultVO resultVO = new ResultVO();
+        resultVO.setStatus(1);
+        Map<String, Object> allUserPage = userService.getAllUserPage(p, s);
+        resultVO.setResult(allUserPage);
+        return resultVO;
     }
 
     @PutMapping("/update")
