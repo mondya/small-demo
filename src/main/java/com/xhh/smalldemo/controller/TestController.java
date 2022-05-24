@@ -134,8 +134,16 @@ public class TestController {
     }
 
     @PostMapping("/add")
-    String add(UserVO userVO) {
-        return userService.saveUser(userVO);
+    ResultVO add(UserVO userVO) {
+        ResultVO resultVO = new ResultVO();
+        try {
+            resultVO.setStatus(1);
+            userService.saveUser(userVO);
+        } catch (Exception e){
+            resultVO.setStatus(0);
+            log.error("add user failed, exception:{}, user:{}", e, userVO);
+        }
+        return resultVO;
     }
 
     @DeleteMapping("/delete/{id}")
