@@ -11,6 +11,8 @@ public interface UserService {
     Map<String, Object> getAllUserPage(int p, int s);
 
     User getUserById(Long id);
+    
+    User getUserByMobileAndPWD(String mobile, String password);
 
     void updateByUserId(User user);
 

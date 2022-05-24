@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,6 +42,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public User getUserById(Long id) {
         return userMapper.selectById(id);
+    }
+
+    @Override
+    public User getUserByMobileAndPWD(String mobile, String password) {
+        return  userMapper.selectOne(new QueryWrapper<User>().eq("status", (byte) 1).eq("mobile", mobile).eq("password", password));
     }
 
     @Override
