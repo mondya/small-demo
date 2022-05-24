@@ -79,9 +79,9 @@ public class TestController {
 
     @PutMapping("/updateV2")
     ResultVO updateV2(@RequestParam("id") Long id,
-                    @RequestParam("name") String name,
-                    @RequestParam("age") Integer age,
-                    @RequestParam("email") String email) {
+                      @RequestParam("name") String name,
+                      @RequestParam("age") Integer age,
+                      @RequestParam("email") String email) {
         ResultVO resultVO = new ResultVO();
         User user = userService.getUserById(id);
         Map<String, Object> map = new HashMap<>();
@@ -112,11 +112,11 @@ public class TestController {
         try {
             resultVO.setStatus(1);
             userService.updateByUserIdV2(id, name, age, email);
-        } catch (Exception e){
+        } catch (Exception e) {
             resultVO.setStatus(0);
-            log.error("update failed,exception:{},id:{}",e,id);
+            log.error("update failed,exception:{},id:{}", e, id);
         }
-        
+
         return resultVO;
     }
 
