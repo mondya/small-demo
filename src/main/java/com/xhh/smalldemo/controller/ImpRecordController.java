@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/1.0/api")
+@RequestMapping("/1.0/api/imp")
 public class ImpRecordController {
     
     @Autowired
