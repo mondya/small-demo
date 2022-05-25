@@ -1,4 +1,4 @@
-package com.xhh.smalldemo.service;
+package com.xhh.smalldemo.service.user;
 
 import com.xhh.smalldemo.vo.UserVO;
 import com.xhh.smalldemo.pojo.User;

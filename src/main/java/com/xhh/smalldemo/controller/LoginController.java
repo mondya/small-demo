@@ -1,7 +1,7 @@
 package com.xhh.smalldemo.controller;
 
 import com.xhh.smalldemo.pojo.User;
-import com.xhh.smalldemo.service.UserService;
+import com.xhh.smalldemo.service.user.UserService;
 import com.xhh.smalldemo.vo.common.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;

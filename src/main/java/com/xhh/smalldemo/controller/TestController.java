@@ -3,7 +3,7 @@ package com.xhh.smalldemo.controller;
 import com.xhh.smalldemo.utils.ToStringUtils;
 import com.xhh.smalldemo.vo.UserVO;
 import com.xhh.smalldemo.pojo.User;
-import com.xhh.smalldemo.service.UserService;
+import com.xhh.smalldemo.service.user.UserService;
 import com.xhh.smalldemo.utils.ObjectUtil;
 import com.xhh.smalldemo.vo.common.ResultVO;
 import lombok.extern.slf4j.Slf4j;

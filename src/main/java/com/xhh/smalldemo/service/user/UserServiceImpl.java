@@ -1,4 +1,4 @@
-package com.xhh.smalldemo.service.impl;
+package com.xhh.smalldemo.service.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xhh.smalldemo.vo.UserVO;
 import com.xhh.smalldemo.mapper.UserMapper;
 import com.xhh.smalldemo.pojo.User;
-import com.xhh.smalldemo.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

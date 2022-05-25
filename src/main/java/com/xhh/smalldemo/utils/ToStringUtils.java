@@ -11,12 +11,13 @@ public class ToStringUtils {
 
     /**
      * String ids cast to Long
+     *
      * @param ids
      * @return
      */
-     public static List<Long> stringIdsToListLong(String ids){
+    public static List<Long> stringIdsToListLong(String ids) {
         List<Long> idList = new ArrayList<>();
-        if (ids != null && !ids.equals("null")){
+        if (ids != null && !ids.equals("null")) {
             String[] split = ids.split(",");
             List<String> strings = Arrays.asList(split);
             idList = strings.stream().map(Long::parseLong).collect(Collectors.toList());

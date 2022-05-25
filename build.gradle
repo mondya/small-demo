@@ -20,6 +20,10 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.10'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
     implementation 'com.google.guava:guava:19.0'
+    implementation group: 'org.apache.poi', name: 'poi-excelant', version: '4.1.0'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.0'
+    implementation group: 'org.apache.poi', name: 'ooxml-schemas', version: '1.4'
+    implementation group: 'org.apache.poi', name: 'poi-scratchpad', version: '4.1.0'
 }
 
 tasks.named('test') {
