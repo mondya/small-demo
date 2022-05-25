@@ -54,7 +54,7 @@ public class TestController {
                 return resultVO;
             }
 
-            if (name != null && !name.equals("")) {
+            if (StringUtils.hasLength(name)) {
                 user.setName(name);
             }
 
@@ -72,7 +72,7 @@ public class TestController {
             userService.updateByUserId(user);
         } catch (Exception e) {
             resultVO = resultVO.failure();
-            log.info("更新失败 id:{},exception:{}", id, e);
+            log.info("update failed id:{},exception:{}", id, e);
         }
         return resultVO;
     }

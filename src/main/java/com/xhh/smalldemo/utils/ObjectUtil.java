@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class ObjectUtil {
     public static void main(String[] args) {
-        User user = new User(12L, "hello", 25, "email", LocalDateTime.now(), LocalDateTime.now(), (byte) 1);
+//        User user = new User(12L, "hello", 25, "email", LocalDateTime.now(), LocalDateTime.now(), (byte) 1);
         Map<String, Object> map = new HashMap<>();
         map.put("name", "hello");
         map.put("email", "email");
