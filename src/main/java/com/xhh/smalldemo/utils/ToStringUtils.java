@@ -1,5 +1,8 @@
 package com.xhh.smalldemo.utils;
 
+
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,8 +13,8 @@ public class ToStringUtils {
 
 
     /**
-     * String ids cast to Long
-     *
+     * String ids cast to Long list
+     * 过滤空字符串
      * @param ids
      * @return
      */
@@ -20,7 +23,7 @@ public class ToStringUtils {
         if (ids != null && !ids.equals("null")) {
             String[] split = ids.split(",");
             List<String> strings = Arrays.asList(split);
-            idList = strings.stream().map(Long::parseLong).collect(Collectors.toList());
+            idList = strings.stream().filter((String s) -> !StringUtils.isBlank(s)).map(Long::parseLong).collect(Collectors.toList());
         }
         return idList;
     }

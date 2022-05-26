@@ -3,8 +3,13 @@ package com.xhh.smalldemo.Enum;
 public class ConstantEnum {
 
     public enum UserType {
+        
         STUDENT("学生", (byte) 1),
+        
+        PARENTS("家长",(byte)2),
+        
         TEACHER("老师", (byte) 6);
+        
         public String name;
         public Byte type;
 
@@ -27,6 +32,7 @@ public class ConstantEnum {
     public enum ItemType {                                                                      
          
         POSITIVE("积极", (byte) 1),
+        
         NEGATIVE("消极", (byte) -1);
 
         public String name;
