@@ -9,4 +9,6 @@ public interface ImpService {
     Map<String,Object> getAllImpRecordByLimit(int p, int s);
     
     void saveAndUpload(ImpRecord impRecord);
+    
+    void deleteRecord(Long id);
 }

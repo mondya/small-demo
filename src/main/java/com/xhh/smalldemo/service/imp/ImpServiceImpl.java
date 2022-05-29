@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xhh.smalldemo.mapper.ImpRecordMapper;
 import com.xhh.smalldemo.pojo.ImpRecord;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +34,17 @@ public class ImpServiceImpl implements ImpService {
     public void saveAndUpload(ImpRecord impRecord) {
         impRecord.setFileName("hello");
     }
-    
+
+    @Override
+    public void deleteRecord(Long id) {
+        ImpRecord impRecord = impRecordMapper.selectById(id);
+        if (ObjectUtils.isNotEmpty(impRecord)){
+            impRecord.setStatus((byte)0);
+            impRecord.setLastUpdated(LocalDateTime.now());
+            impRecordMapper.updateById(impRecord);
+        }
+    }
+
     @Transactional
     void saveImpRecord(ImpRecord impRecord){
         impRecordMapper.insert(impRecord);
