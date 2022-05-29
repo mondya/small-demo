@@ -39,6 +39,7 @@ public class ImpRecordController {
     public ResultVO saveImp(@RequestParam("type") Byte type){
         ResultVO resultVO = new ResultVO();
         resultVO.setStatus(1);
+        //TODO 需要增加type类型
         ImpRecord impRecord = new ImpRecord();
         try {
             impService.saveAndUpload(impRecord);
