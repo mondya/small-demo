@@ -2,6 +2,7 @@ package com.xhh.smalldemo.utils;
 
 import org.springframework.util.ObjectUtils;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -31,10 +32,49 @@ public class TimeUtil {
         return format;
     }
 
+    /**
+     * 获取一天的开始时间
+     * @param stamp
+     * @return LocalDateTime
+     */
+    public static LocalDateTime getDayStartTime(Long stamp){
+        LocalDate localDate = Instant.ofEpochMilli(stamp).atOffset(ZoneOffset.ofHours(8)).toLocalDate();
+        return localDate.atStartOfDay();
+    }
+
+    /**
+     * 获取一天的结束时间
+     * @param stamp
+     * @return LocalDateTime
+     */
+    public static LocalDateTime getDayEndTime(Long stamp){
+        LocalDateTime localDateTime = Instant.ofEpochMilli(stamp).atOffset(ZoneOffset.ofHours(8)).toLocalDateTime();
+        return localDateTime.withHour(23).withMinute(59).withSecond(59);
+    }
+
+    /**
+     * 获取一天的开始时间戳
+     * @param stamp
+     * @return long
+     */
+    public static Long getDayStartStamp(Long stamp){
+        return Instant.ofEpochMilli(stamp).atOffset(ZoneOffset.ofHours(8)).toLocalDate().atStartOfDay().toInstant(ZoneOffset.ofHours(8)).toEpochMilli();
+    }
+
+    /**
+     * 获取一天的开始时间戳
+     * @param stamp
+     * @return
+     */
+    public static Long getDayEndStamp(Long stamp){
+        return Instant.ofEpochMilli(stamp).atOffset(ZoneOffset.ofHours(8)).toLocalDate().atStartOfDay().plusDays(1).toInstant(ZoneOffset.ofHours(8)).toEpochMilli();
+    }
+
     public static void main(String[] args) {
         LocalDate now = LocalDate.now();
         System.out.println(getTimeStamp(null,now));
         LocalDateTime nowTime = LocalDateTime.now();
         System.out.println(getTimeFormat(nowTime,null,"HH:mm"));
+        System.out.println(getDayEndStamp(1653977998000L));
     }
 }
