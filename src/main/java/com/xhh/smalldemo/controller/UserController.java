@@ -18,7 +18,7 @@ import java.util.*;
 @Slf4j
 @RestController
 @RequestMapping("/1.0/api/test")
-public class TestController {
+public class UserController {
 
     @Autowired
     UserService userService;
