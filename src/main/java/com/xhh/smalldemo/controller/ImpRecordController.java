@@ -50,7 +50,7 @@ public class ImpRecordController {
     }
     
     @DeleteMapping("/delete/{id}")
-    public ResultVO delete(@RequestParam("id") Long id){
+    public ResultVO delete(@PathVariable("id") Long id){
         ResultVO resultVO = new ResultVO();
         resultVO.setStatus(1);
         try {
