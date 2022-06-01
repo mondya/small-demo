@@ -17,6 +17,10 @@ import java.time.LocalDateTime;
 public class ImpRecord implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
+    //导入导出类型
+    private Byte type;
+    //报错信息，冗余
+    private String message;
     private String fileName;
     private String url;
     private String userName;
