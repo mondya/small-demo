@@ -33,7 +33,6 @@ public class TestController {
         resultVO.setResult(allUserPage);
         return resultVO;
     }
-
     
     @PutMapping("/update")
     ResultVO update(@RequestParam("id") Long id,
