@@ -24,7 +24,10 @@ public class LoginController {
                           @RequestParam(value = "checkNo", required = false) String checkNo) {
         Assert.hasLength(mobile, "手机号不能为空");
         if (StringUtils.hasLength(checkNo)){
-            // todo 查询验证码相关操作
+            // todo 查询验证码相关操作,和redis缓存中的code做对比
+        }
+        if(StringUtils.hasLength(password)){
+            // todo 加密密码和数据库中加密后的密码作对比
         }
         ResultVO resultVO = new ResultVO();
         User user = userService.getUserByMobileAndPWD(mobile, password);
