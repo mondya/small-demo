@@ -52,6 +52,17 @@ public class TimeUtil {
         return localDateTime.withHour(23).withMinute(59).withSecond(59);
     }
 
+
+    /**
+     * 获取一天结束日期，23:59:59
+     * @param stamp 时间戳
+     * @return 时间戳
+     */
+    public static Long getDayEndTimeStamp(Long stamp){
+        LocalDateTime localDateTime = Instant.ofEpochMilli(stamp).atOffset(ZoneOffset.ofHours(8)).toLocalDateTime().withHour(23).withMinute(59).withSecond(59);
+        return localDateTime.toInstant(ZoneOffset.ofHours(8)).toEpochMilli();
+    }
+
     /**
      * 获取一天的开始时间戳
      * @param stamp
@@ -62,7 +73,7 @@ public class TimeUtil {
     }
 
     /**
-     * 获取一天的开始时间戳
+     * 获取后一天开始时间戳
      * @param stamp
      * @return
      */
