@@ -4,7 +4,6 @@ import com.xhh.smalldemo.pojo.ImpRecord;
 import com.xhh.smalldemo.service.imp.ImpService;
 import com.xhh.smalldemo.vo.common.ResultVO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.math3.analysis.function.Exp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,11 +34,12 @@ public class ImpRecordController {
         return resultVO;
     }
     
+    
     @PostMapping("/save")
-    public ResultVO saveImp(@RequestParam("type") Byte type){
+    public ResultVO saveImp(@RequestParam("type") Byte type, @RequestParam("id") Long id){
         ResultVO resultVO = new ResultVO();
         resultVO.setStatus(1);
-        //TODO 需要增加type类型
+        //TODO 需要增加type类型, id做重试使用
         ImpRecord impRecord = new ImpRecord();
         try {
             impService.saveAndUpload(impRecord);
