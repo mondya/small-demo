@@ -39,7 +39,7 @@ public class ImpRecordController {
     public ResultVO saveImp(@RequestParam("type") Byte type, @RequestParam("id") Long id){
         ResultVO resultVO = new ResultVO();
         resultVO.setStatus(1);
-        //TODO 需要增加type类型, id做重试使用
+        //TODO 需要增加type类型, id做重试使用,适用于某些导出失败需要重试操作的业务
         ImpRecord impRecord = new ImpRecord();
         try {
             impService.saveAndUpload(impRecord);

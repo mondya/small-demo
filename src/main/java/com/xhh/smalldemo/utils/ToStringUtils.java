@@ -15,8 +15,8 @@ public class ToStringUtils {
     /**
      * String ids cast to Long list
      * 过滤空字符串
-     * @param ids
-     * @return
+     * @param ids String类型的字符串
+     * @return list long
      */
     public static List<Long> stringIdsToListLong(String ids) {
         List<Long> idList = new ArrayList<>();
