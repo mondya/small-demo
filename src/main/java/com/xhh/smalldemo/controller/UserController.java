@@ -6,6 +6,8 @@ import com.xhh.smalldemo.pojo.User;
 import com.xhh.smalldemo.service.user.UserService;
 import com.xhh.smalldemo.utils.ObjectUtil;
 import com.xhh.smalldemo.vo.common.ResultVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
@@ -18,12 +20,14 @@ import java.util.*;
 @Slf4j
 @RestController
 @RequestMapping("/1.0/api/test")
+@Api(tags = "user相关接口")
 public class UserController {
 
     @Autowired
     UserService userService;
 
 
+    @ApiOperation(value = "查询所有user")
     @RequestMapping("/users")
     ResultVO getAllUser(@RequestParam(value = "p", required = false, defaultValue = "1") int p,
                         @RequestParam(value = "s", required = false, defaultValue = "30") int s) {
