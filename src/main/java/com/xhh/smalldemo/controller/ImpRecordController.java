@@ -3,6 +3,7 @@ package com.xhh.smalldemo.controller;
 import com.xhh.smalldemo.pojo.ImpRecord;
 import com.xhh.smalldemo.service.imp.ImpService;
 import com.xhh.smalldemo.vo.common.ResultVO;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/1.0/api/imp")
+@Api(value = "excel导入导出")
 public class ImpRecordController {
     
     @Autowired

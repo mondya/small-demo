@@ -3,6 +3,7 @@ package com.xhh.smalldemo.controller;
 import com.xhh.smalldemo.pojo.User;
 import com.xhh.smalldemo.service.user.UserService;
 import com.xhh.smalldemo.vo.common.ResultVO;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/1.0/api")
+@Api(value = "登入接口")
 public class LoginController {
 
     @Autowired
