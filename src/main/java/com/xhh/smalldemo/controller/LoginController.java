@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/1.0/api")
-@Api(value = "登入接口")
+@Api(value = "登入接口", tags = "登入")
 public class LoginController {
 
     @Autowired

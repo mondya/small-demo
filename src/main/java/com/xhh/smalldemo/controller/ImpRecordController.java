@@ -4,6 +4,7 @@ import com.xhh.smalldemo.pojo.ImpRecord;
 import com.xhh.smalldemo.service.imp.ImpService;
 import com.xhh.smalldemo.vo.common.ResultVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +14,14 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/1.0/api/imp")
-@Api(value = "excel导入导出")
+@Api(value = "excel导入导出", tags = "excel")
 public class ImpRecordController {
     
     @Autowired
     ImpService impService;
     
-    @RequestMapping("/index")
+    @ApiOperation(value = "查询记录")
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ResultVO getAllImpRecord(@RequestParam(name = "p", defaultValue = "1") int p,
                                     @RequestParam(name = "s", defaultValue = "30") int s){
         ResultVO resultVO = new ResultVO();
@@ -36,7 +38,7 @@ public class ImpRecordController {
         return resultVO;
     }
     
-    
+    @ApiOperation(value = "导入导出")
     @PostMapping("/save")
     public ResultVO saveImp(@RequestParam("type") Byte type, @RequestParam("id") Long id){
         ResultVO resultVO = new ResultVO();
@@ -52,6 +54,7 @@ public class ImpRecordController {
         return resultVO;
     }
     
+    @ApiOperation(value = "删除导出记录")
     @DeleteMapping("/delete/{id}")
     public ResultVO delete(@PathVariable("id") Long id){
         ResultVO resultVO = new ResultVO();

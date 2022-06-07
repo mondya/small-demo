@@ -20,7 +20,7 @@ import java.util.*;
 @Slf4j
 @RestController
 @RequestMapping("/1.0/api/test")
-@Api(tags = "user相关接口")
+@Api(value = "用户", tags = "user相关接口")
 public class UserController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class UserController {
 
 
     @ApiOperation(value = "查询所有user")
-    @RequestMapping("/users")
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
     ResultVO getAllUser(@RequestParam(value = "p", required = false, defaultValue = "1") int p,
                         @RequestParam(value = "s", required = false, defaultValue = "30") int s) {
         ResultVO resultVO = new ResultVO();
@@ -38,7 +38,7 @@ public class UserController {
         return resultVO;
     }
     
-    
+    @ApiOperation(value = "更新用户")
     @PutMapping("/update")
     ResultVO update(@RequestParam("id") Long id,
                     @RequestParam("name") String name,
@@ -82,6 +82,7 @@ public class UserController {
         return resultVO;
     }
 
+    @ApiOperation(value = "更新用户v2")
     @PutMapping("/updateV2")
     ResultVO updateV2(@RequestParam("id") Long id,
                       @RequestParam("name") String name,
@@ -125,6 +126,7 @@ public class UserController {
         return resultVO;
     }
 
+    @ApiOperation(value = "保存用户")
     @PostMapping(value = "/save")
     ResultVO save(@RequestBody UserVO userVO) {
         ResultVO resultVO = new ResultVO();
@@ -151,6 +153,7 @@ public class UserController {
         return resultVO;
     }
 
+    @ApiOperation(value = "删除用户")
     @DeleteMapping("/delete/{id}")
     ResultVO delete(@PathVariable("id") Long id) {
         ResultVO resultVO = new ResultVO();
@@ -164,6 +167,7 @@ public class UserController {
         return resultVO;
     }
 
+    @ApiOperation(value = "批量删除")
     @DeleteMapping("/delete")
     ResultVO batchDelete(@RequestParam("ids") String ids) {
         ResultVO resultVO = new ResultVO();
