@@ -31,13 +31,13 @@ public class ObjectUtil {
                 fieldNames[i] = fields[i].getName();
             }
             //通过属性拿到值
-            for (int i = 0; i < fieldNames.length; i++) {
-                String firstStr = fieldNames[i].substring(0, 1).toUpperCase();
-                String getter = "get" + firstStr + fieldNames[i].substring(1);
+            for (String fieldName : fieldNames) {
+                String firstStr = fieldName.substring(0, 1).toUpperCase();
+                String getter = "get" + firstStr + fieldName.substring(1);
                 Method method = object.getClass().getMethod(getter);
                 System.out.println(method);
                 Object invoke = method.invoke(object);
-                checkMap.put(fieldNames[i], invoke);
+                checkMap.put(fieldName, invoke);
             }
             //判断是否有更改
             for (Map.Entry<String, Object> entry : map.entrySet()) {

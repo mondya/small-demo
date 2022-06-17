@@ -1,34 +1,35 @@
 package com.xhh.smalldemo.utils;
 
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSClientBuilder;
 import com.mysql.cj.log.Log;
+import com.xhh.smalldemo.config.OSSConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.file.Files;
 
 /**
  * 阿里云上传
  */
 @Slf4j
 public class OSSUtils {
-    //上传
-    void upload(XSSFWorkbook workbook, String fileName) throws IOException {
-        File file = new File(fileName);
-        OutputStream outputStream = null;
+    //上传excel文件
+    void upload(String fileName, Workbook workbook){
+        
+    }
+    
+    String upload(InputStream inputStream, String fileName){
+        OSS ossClient = new OSSClientBuilder().build(OSSConfig.END_POINT, OSSConfig.ACCESS_KEY_ID, OSSConfig.ACCESS_KEY_SECRET);
         try {
-            outputStream = new FileOutputStream(file);
-            workbook.write(outputStream);
+            ossClient.putObject(OSSConfig.BUCKET_NAME, fileName, inputStream);
         } catch (Exception e){
-            log.error("文件上传失败,e",e);
+            log.error("上传阿里云失败,message:{}", e);
         } finally {
-            if (outputStream != null){
-                outputStream.flush();
-                outputStream.close();
-            }
-            workbook.close();
+            ossClient.shutdown();
         }
+        return "https://" + OSSConfig.BUCKET_NAME + "." + OSSConfig.END_POINT + "/" + fileName;
     }
 }

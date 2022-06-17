@@ -26,6 +26,7 @@ dependencies {
     implementation group: 'org.apache.poi', name: 'poi-scratchpad', version: '4.1.0'
     implementation 'org.apache.commons:commons-lang3:3.9'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'com.aliyun.oss:aliyun-sdk-oss:3.1.0'
 }
 
 tasks.named('test') {
