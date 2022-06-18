@@ -2,20 +2,91 @@ package com.xhh.smalldemo.utils;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
-import com.mysql.cj.log.Log;
 import com.xhh.smalldemo.config.OSSConfig;
+import com.xhh.smalldemo.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 阿里云上传
  */
 @Slf4j
 public class OSSUtils {
+
+    //上传excel打包文件
+    String uploadZip(Map<String, List<User>> map, String fileName) {
+        String url = "";
+        ZipOutputStream zipOutputStream = null;
+        ByteArrayOutputStream byteArrayOutputStream = null;
+        ByteArrayInputStream inputStream = null;
+        try {
+            byteArrayOutputStream = new ByteArrayOutputStream(61858764); // 设置大小为60M
+            zipOutputStream = new ZipOutputStream(byteArrayOutputStream); // 创建一个压缩流，初始化缓冲区
+            for (Map.Entry<String, List<User>> entry : map.entrySet()) {
+                XSSFWorkbook workbook = new XSSFWorkbook();
+                // 文件名
+                ZipEntry zipEntry = new ZipEntry("fileName.xlsx");
+                List<User> users = entry.getValue();
+                users.forEach((User user) -> {
+                    // 
+                    String sheetName = "sheetName";
+                    Map<String, Object> dataMap = new HashMap<>();
+                    ExcelUtil.buildTitle(workbook, dataMap, sheetName);
+                });
+                zipOutputStream.putNextEntry(zipEntry);
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream(61858764);
+                workbook.write(outputStream);
+                outputStream.writeTo(zipOutputStream);
+                outputStream.flush();
+                outputStream.close();
+                zipOutputStream.flush();
+                zipOutputStream.closeEntry();
+                zipOutputStream.close();
+                byteArrayOutputStream.flush();
+                byteArrayOutputStream.close();
+
+                //上传阿里云之前必须先关闭流
+                inputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+                url = this.upload(inputStream, fileName);
+            }
+        } catch (Exception e) {
+            //
+            log.error("失败");
+        } finally {
+            if (null != zipOutputStream) {
+                try {
+                    zipOutputStream.flush();
+                    zipOutputStream.close();
+                } catch (Exception e) {
+                    log.error("关闭异常");
+                }
+                try {
+                    byteArrayOutputStream.flush();
+                    byteArrayOutputStream.close();
+                } catch (Exception e) {
+                    log.error("关闭异常");
+                }
+
+                try {
+                    if (null != inputStream) {
+                        inputStream.close();
+                    }
+                } catch (Exception e) {
+                    log.error("关闭异常");
+                }
+            }
+        }
+        return url;
+    }
 
     // 上传File文件
     String upload(File file) {
@@ -28,17 +99,23 @@ public class OSSUtils {
             log.error("文件写入失败");
         } finally {
             try {
-                if (fileInputStream != null){
+                if (fileInputStream != null) {
                     fileInputStream.close();
                 }
-            } catch (Exception e){
-                log.error("fileOutputStream关闭异常",e);
+            } catch (Exception e) {
+                log.error("fileOutputStream关闭异常", e);
             }
         }
         return url;
     }
 
-    //上传excel文件
+    /**
+     * 上传单个excel文件
+     *
+     * @param fileName name
+     * @param workbook 生成excel工作溥
+     * @return url
+     */
     String upload(String fileName, Workbook workbook) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         InputStream inputStream = null;
@@ -60,6 +137,14 @@ public class OSSUtils {
         return url;
     }
 
+    /**
+     * 公共上传方法
+     * 流式上传
+     *
+     * @param inputStream is
+     * @param fileName    file
+     * @return url
+     */
     String upload(InputStream inputStream, String fileName) {
         OSS ossClient = new OSSClientBuilder().build(OSSConfig.END_POINT, OSSConfig.ACCESS_KEY_ID, OSSConfig.ACCESS_KEY_SECRET);
         try {
