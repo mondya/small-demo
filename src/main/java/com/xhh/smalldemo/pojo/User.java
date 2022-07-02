@@ -29,4 +29,8 @@ public class User implements Serializable {
     private LocalDateTime dateCreated;
     private LocalDateTime lastUpdated;
     private Byte status;
+    
+    public User(String name){
+        this.name = name;
+    }
 }

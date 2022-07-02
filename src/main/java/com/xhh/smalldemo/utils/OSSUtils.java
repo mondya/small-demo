@@ -6,10 +6,12 @@ import com.xhh.smalldemo.config.OSSConfig;
 import com.xhh.smalldemo.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +24,29 @@ import java.util.zip.ZipOutputStream;
 @Slf4j
 public class OSSUtils {
 
+    public static void main(String[] args) throws IOException {
+        Map<String,List<User>> map = new HashMap<>();
+        List<User> user1 = new ArrayList<>();
+        user1.add(new User("xhh"));
+        map.put("1", user1);
+
+        List<User> user2 = new ArrayList<>();
+        user2.add(new User("xhh2"));
+        map.put("2", user2);
+
+        ByteArrayInputStream byteArrayInputStream = uploadZip(map, null);
+        byte[] bytes = new byte[1000000];
+        byteArrayInputStream.read(bytes);
+        File file = new File("d:/nihao.zip");
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        fileOutputStream.write(bytes);
+        
+        fileOutputStream.close();
+        byteArrayInputStream.close();
+    }
+
     //上传excel打包文件
-    String uploadZip(Map<String, List<User>> map, String fileName) {
+    public static ByteArrayInputStream uploadZip(Map<String, List<User>> map, String fileName) {
         String url = "";
         ZipOutputStream zipOutputStream = null;
         ByteArrayOutputStream byteArrayOutputStream = null;
@@ -39,8 +62,14 @@ public class OSSUtils {
                 users.forEach((User user) -> {
                     // 
                     String sheetName = "sheetName";
-                    Map<String, Object> dataMap = new HashMap<>();
-                    ExcelUtil.buildTitle(workbook, dataMap, sheetName);
+                    Map<Integer, Object> dataMap = new HashMap<>();
+                    dataMap.put(1, user.getName());
+                    dataMap.put(2, user.getAge());
+                    Map<Integer, String> titleMap = new HashMap<>();
+                    titleMap.put(1, "name");
+                    titleMap.put(2, "age");
+                    XSSFSheet sheet = ExcelUtil.buildTitle(workbook, titleMap, "hello", null);
+                    ExcelUtil.buildSheetRow(sheet, 1, dataMap, null, null);
                 });
                 zipOutputStream.putNextEntry(zipEntry);
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream(61858764);
@@ -56,7 +85,7 @@ public class OSSUtils {
 
                 //上传阿里云之前必须先关闭流
                 inputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-                url = this.upload(inputStream, fileName);
+                //url = this.upload(inputStream, fileName);
             }
         } catch (Exception e) {
             //
@@ -85,7 +114,8 @@ public class OSSUtils {
                 }
             }
         }
-        return url;
+        // return url;
+        return inputStream;
     }
 
     // 上传File文件
