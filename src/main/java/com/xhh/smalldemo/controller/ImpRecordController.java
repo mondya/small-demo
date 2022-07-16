@@ -23,11 +23,12 @@ public class ImpRecordController {
     @ApiOperation(value = "查询记录")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ResultVO getAllImpRecord(@RequestParam(name = "p", defaultValue = "1") int p,
-                                    @RequestParam(name = "s", defaultValue = "30") int s){
+                                    @RequestParam(name = "s", defaultValue = "30") int s,
+                                    @RequestParam(name = "type") Byte type){
         ResultVO resultVO = new ResultVO();
         resultVO.setStatus(1);
         try {
-            Map<String, Object> allImpRecordByLimit = impService.getAllImpRecordByLimit(p, s);
+            Map<String, Object> allImpRecordByLimit = impService.getAllImpRecordByLimit(type, p, s);
             resultVO.getResult().put("list", allImpRecordByLimit.get("list"));
             resultVO.getResult().put("total", allImpRecordByLimit.get("total"));
         } catch (Exception e){
@@ -56,11 +57,12 @@ public class ImpRecordController {
     
     @ApiOperation(value = "删除导出记录")
     @DeleteMapping("/delete/{id}")
-    public ResultVO delete(@PathVariable("id") Long id){
+    public ResultVO delete(@PathVariable("id") Long id,
+                           @RequestParam(value = "ids", required = false) String ids){
         ResultVO resultVO = new ResultVO();
         resultVO.setStatus(1);
         try {
-            impService.deleteRecord(id);
+            impService.deleteRecord(id, ids);
             resultVO.setMessage("success");
         } catch (Exception e){
             resultVO = resultVO.failure();
