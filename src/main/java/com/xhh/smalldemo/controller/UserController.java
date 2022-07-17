@@ -28,7 +28,7 @@ public class UserController {
 
 
     @ApiOperation(value = "查询所有user")
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     ResultVO getAllUser(@RequestParam(value = "p", required = false, defaultValue = "1") int p,
                         @RequestParam(value = "s", required = false, defaultValue = "30") int s) {
         ResultVO resultVO = new ResultVO();
