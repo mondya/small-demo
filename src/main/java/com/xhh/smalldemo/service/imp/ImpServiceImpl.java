@@ -58,7 +58,7 @@ public class ImpServiceImpl extends ServiceImpl<ImpRecordMapper, ImpRecord> impl
                 imp.setStatus((byte) 0);
                 imp.setLastUpdated(LocalDateTime.now());
             });
-            this.saveOrUpdateBatch(impRecords);
+            super.saveOrUpdateBatch(impRecords);
         }
     }
 
