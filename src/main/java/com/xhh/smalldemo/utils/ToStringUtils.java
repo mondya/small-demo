@@ -45,12 +45,16 @@ public class ToStringUtils {
      * @return list long
      */
     public static List<Long> stringIdsToListLongV2(String ids) {
-        Iterable<String> split = Splitter.on(",").trimResults().omitEmptyStrings().split(ids);
         List<Long> idList = Lists.newArrayList();
-        
-        split.forEach((String s) -> {
-            idList.add(Long.parseLong(s));
-        });
+        try {
+            Iterable<String> split = Splitter.on(",").trimResults().omitEmptyStrings().split(ids);
+
+            split.forEach((String s) -> {
+                idList.add(Long.parseLong(s));
+            });
+        } catch (Exception e) {
+            log.error("ids to Long List fail ids:{}, message:{}", ids, e);
+        }
         return idList;
     }
 
@@ -61,8 +65,8 @@ public class ToStringUtils {
         }
         try {
             s = Joiner.on(",").join(idList);
-        } catch (Exception e){
-            log.error("解析失败,e:",e);
+        } catch (Exception e) {
+            log.error("解析失败,ids:{},e:", idList, e);
         }
         return s;
     }
