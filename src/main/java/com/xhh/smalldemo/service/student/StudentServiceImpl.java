@@ -2,6 +2,7 @@ package com.xhh.smalldemo.service.student;
 
 import com.xhh.smalldemo.mapper.StudentMapper;
 import com.xhh.smalldemo.pojo.Student;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
