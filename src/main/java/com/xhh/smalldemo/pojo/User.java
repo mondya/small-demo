@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("user")
-@ApiModel(value = "用户相关类")
+@ApiModel(value = "user", description = "用户表")
 public class User implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
