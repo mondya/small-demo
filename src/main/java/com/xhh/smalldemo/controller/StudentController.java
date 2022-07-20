@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/student")
@@ -19,6 +20,20 @@ public class StudentController {
     
     @Resource
     StudentService studentService;
+    
+    public ResultVO index(@RequestParam(value = "p", defaultValue = "1") int p,
+                          @RequestParam(value = "s", defaultValue = "30") int s){
+        ResultVO resultVO = new ResultVO();
+        try {
+            Map<String, Object> allStudentByLimit = studentService.getAllStudentByLimit(p, s);
+            resultVO.getResult().put("list", allStudentByLimit.get("list"));
+            resultVO.getResult().put("total", allStudentByLimit.get("total"));
+        } catch (Exception e){
+            resultVO = resultVO.failure();
+            log.error("查询出错:", e);
+        }
+        return resultVO;
+    }
     
     @PostMapping()
     public ResultVO addStudent(@RequestParam("code") String code,
