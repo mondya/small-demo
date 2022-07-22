@@ -11,6 +11,9 @@ public class Student {
     
     @TableId(type = IdType.AUTO)
     private Long id;
+    private Long campusId;
+    private Long unitId;
+    private Long gradeId;
     private String name;
     private String code;
     private Byte status;
@@ -19,12 +22,30 @@ public class Student {
     
     // 建造者模式
     public static class Builder{
+        private Long campusId;
+        private Long unitId;
+        private Long gradeId;
         private String name;
         private String code;
         private Byte status;
         private LocalDateTime dateCreated;
         private LocalDateTime lastUpdated;
         
+        
+        
+        public Builder campusId(Long campusId){
+            this.campusId = campusId;
+            return this;
+        }
+
+        public Builder unitId(Long unitId){
+            this.unitId = unitId;
+            return this;
+        }
+        public Builder gradeId(Long gradeId){
+            this.gradeId = gradeId;
+            return this;
+        }
         public Builder name(String name){
             this.name = name;
             return this;
@@ -56,6 +77,9 @@ public class Student {
     }
     
     private Student(Builder builder){
+        campusId = builder.campusId;
+        unitId = builder.unitId;
+        gradeId = builder.gradeId;
         name = builder.name;
         code = builder.code;
         status = builder.status;
