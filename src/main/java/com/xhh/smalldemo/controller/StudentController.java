@@ -21,10 +21,11 @@ public class StudentController {
     
     @GetMapping("/student")
     public ResultVO index(@RequestParam(value = "p", defaultValue = "1") int p,
-                          @RequestParam(value = "s", defaultValue = "30") int s){
+                          @RequestParam(value = "s", defaultValue = "30") int s,
+                          @RequestParam(value = "searchValue", required = false) String searchValue){
         ResultVO resultVO = new ResultVO();
         try {
-            Map<String, Object> allStudentByLimit = studentService.getAllStudentByLimit(p, s);
+            Map<String, Object> allStudentByLimit = studentService.getAllStudentByLimit(searchValue,p, s);
             resultVO.getResult().put("list", allStudentByLimit.get("list"));
             resultVO.getResult().put("total", allStudentByLimit.get("total"));
         } catch (Exception e){

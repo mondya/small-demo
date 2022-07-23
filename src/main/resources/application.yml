@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active:
+    active: prd
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mybatis_plus?useUnicode=true&characterEncoding=utf8&useSSL=false&useServerPrepStmts=false&rewriteBatchedStatements=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
@@ -11,4 +11,6 @@ spring:
       matching-strategy: ant_path_matcher
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   

@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface StudentService {
     
-    Map<String, Object> getAllStudentByLimit(int p, int s);
+    Map<String, Object> getAllStudentByLimit(String searchValue, int p, int s);
     
     void insertOneStudent(String code, String name);
     
