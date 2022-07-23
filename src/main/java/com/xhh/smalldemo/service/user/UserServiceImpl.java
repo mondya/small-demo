@@ -25,10 +25,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
     @Override
-    public Map<String, Object> getAllUserPage(int p, int s) {
+    public Map<String, Object> getAllUserPage(String searchValue, int p, int s) {
         Map<String, Object> map = new HashMap<>();
         Page<User> page = new Page<User>(p, s);
-        IPage<User> pageList = userMapper.selectPage(page, new QueryWrapper<User>().eq("status", (byte) 1));
+        IPage<User> pageList = userMapper.selectPage(page, new QueryWrapper<User>().eq("status", (byte) 1).like("name","%" + searchValue + "%"));
         List<User> records = pageList.getRecords();
         long total = pageList.getTotal();
         map.put("list", records);

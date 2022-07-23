@@ -30,10 +30,11 @@ public class UserController {
     @ApiOperation(value = "查询所有user")
     @RequestMapping(method = RequestMethod.GET)
     ResultVO getAllUser(@RequestParam(value = "p", required = false, defaultValue = "1") int p,
-                        @RequestParam(value = "s", required = false, defaultValue = "30") int s) {
+                        @RequestParam(value = "s", required = false, defaultValue = "30") int s,
+                        @RequestParam(required = false) String searchValue) {
         ResultVO resultVO = new ResultVO();
         resultVO.setStatus(1);
-        Map<String, Object> allUserPage = userService.getAllUserPage(p, s);
+        Map<String, Object> allUserPage = userService.getAllUserPage(searchValue, p, s);
         resultVO.setResult(allUserPage);
         return resultVO;
     }

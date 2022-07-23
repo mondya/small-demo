@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface UserService {
 
-    Map<String, Object> getAllUserPage(int p, int s);
+    Map<String, Object> getAllUserPage(String searchValue, int p, int s);
 
     User getUserById(Long id);
     
