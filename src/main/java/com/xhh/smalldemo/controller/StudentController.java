@@ -1,13 +1,11 @@
 package com.xhh.smalldemo.controller;
 
+import com.xhh.smalldemo.pojo.Student;
 import com.xhh.smalldemo.service.student.StudentService;
 import com.xhh.smalldemo.vo.common.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -21,6 +19,7 @@ public class StudentController {
     @Resource
     StudentService studentService;
     
+    @GetMapping("/student")
     public ResultVO index(@RequestParam(value = "p", defaultValue = "1") int p,
                           @RequestParam(value = "s", defaultValue = "30") int s){
         ResultVO resultVO = new ResultVO();
@@ -32,6 +31,22 @@ public class StudentController {
             resultVO = resultVO.failure();
             log.error("查询出错:", e);
         }
+        return resultVO;
+    }
+    
+    @GetMapping("/{id}")
+    public ResultVO show(@PathVariable("id") Long id){
+        ResultVO resultVO = new ResultVO();
+        resultVO.setStatus(1);
+        
+        try {
+            Student student = studentService.getOne(id);
+            resultVO.getResult().put("student", student);
+        } catch (Exception e){
+            resultVO.setStatus(0);
+            log.error("查询出错",e);
+        }
+        
         return resultVO;
     }
     

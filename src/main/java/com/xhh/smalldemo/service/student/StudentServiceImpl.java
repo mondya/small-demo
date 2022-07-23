@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xhh.smalldemo.mapper.StudentMapper;
 import com.xhh.smalldemo.pojo.Student;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -33,6 +34,16 @@ public class StudentServiceImpl implements StudentService{
         Student student = new Student.Builder().code(code).name(name).dateCreated(LocalDateTime.now()).
                 lastUpdated(LocalDateTime.now()).status((byte)1).build();
         
+        this.saveStudent(student);
+    }
+
+    @Override
+    public Student getOne(Long studentId) {
+        return studentMapper.selectById(studentId);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    void saveStudent(Student student){
         studentMapper.insert(student);
     }
 }

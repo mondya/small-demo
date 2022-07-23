@@ -1,19 +1,24 @@
 package com.xhh.smalldemo.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @ApiModel(value = "student", description = "学生表")
+@TableName("student")
+@AllArgsConstructor
+@Data
 public class Student {
     
     @TableId(type = IdType.AUTO)
     private Long id;
     private Long campusId;
-    private Long unitId;
-    private Long gradeId;
     private String name;
     private String code;
     private Byte status;
@@ -23,8 +28,6 @@ public class Student {
     // 建造者模式
     public static class Builder{
         private Long campusId;
-        private Long unitId;
-        private Long gradeId;
         private String name;
         private String code;
         private Byte status;
@@ -37,15 +40,7 @@ public class Student {
             this.campusId = campusId;
             return this;
         }
-
-        public Builder unitId(Long unitId){
-            this.unitId = unitId;
-            return this;
-        }
-        public Builder gradeId(Long gradeId){
-            this.gradeId = gradeId;
-            return this;
-        }
+        
         public Builder name(String name){
             this.name = name;
             return this;
@@ -78,12 +73,23 @@ public class Student {
     
     private Student(Builder builder){
         campusId = builder.campusId;
-        unitId = builder.unitId;
-        gradeId = builder.gradeId;
         name = builder.name;
         code = builder.code;
         status = builder.status;
         dateCreated = builder.dateCreated;
         lastUpdated = builder.lastUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", campusId=" + campusId +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", status=" + status +
+                ", dateCreated=" + dateCreated +
+                ", lastUpdated=" + lastUpdated +
+                '}';
     }
 }
