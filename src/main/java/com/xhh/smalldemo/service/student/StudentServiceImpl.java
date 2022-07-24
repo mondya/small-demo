@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xhh.smalldemo.mapper.StudentMapper;
 import com.xhh.smalldemo.pojo.Student;
+import com.xhh.smalldemo.utils.ObjectUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,14 +52,14 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public void updateStudent(Long studentId, String name, String code) {
         Student student = studentMapper.selectById(studentId);
-        if (StringUtils.isNotBlank(name)){
-            student.setName(name);
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("code", code);
+        if (ObjectUtil.checkChange(student, map)){
+            student.setLastUpdated(LocalDateTime.now());
+        } else {
+            return;
         }
-        
-        if (StringUtils.isNotBlank(code)){
-            student.setCode(code);
-        }
-        
         studentMapper.updateById(student);
     }
 

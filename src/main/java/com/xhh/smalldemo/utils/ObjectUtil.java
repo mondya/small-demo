@@ -1,14 +1,16 @@
 package com.xhh.smalldemo.utils;
 
-import com.xhh.smalldemo.pojo.User;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@Slf4j
 public class ObjectUtil {
     public static void main(String[] args) {
 //        User user = new User(12L, "hello", 25, "email", LocalDateTime.now(), LocalDateTime.now(), (byte) 1);
@@ -20,7 +22,12 @@ public class ObjectUtil {
         System.out.println(count != (int) map.get("age"));
     }
 
-    //在update时判断Object属性是否更改
+    /**
+     * 在update时判断Object属性是否更改
+     * @param object
+     * @param map
+     * @return boolean 有更改为true,无更改为false
+     */
     public static boolean checkChange(Object object, Map<String, Object> map) {
         Map<String, Object> checkMap = new HashMap<>();
         try {
@@ -45,16 +52,16 @@ public class ObjectUtil {
                 if (Objects.equals(entry.getValue(), checkMap.get(key))) {
 //                if (!entry.getValue().equals(checkMap.get(key))){
 //                if (entry.getValue() != checkMap.get(key)) {
-                    return false;
+                    return true;
                 }
 //                System.out.println(entry.getValue().equals(checkMap.get(key)));
             }
 
-            return true;
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("ObjectUtils checkChange method fail, message:", e);
         }
+        return false;
     }
 
 
