@@ -48,6 +48,20 @@ public class StudentServiceImpl implements StudentService{
         return studentMapper.selectById(studentId);
     }
 
+    @Override
+    public void updateStudent(Long studentId, String name, String code) {
+        Student student = studentMapper.selectById(studentId);
+        if (StringUtils.isNotBlank(name)){
+            student.setName(name);
+        }
+        
+        if (StringUtils.isNotBlank(code)){
+            student.setCode(code);
+        }
+        
+        studentMapper.updateById(student);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     void saveStudent(Student student){
         studentMapper.insert(student);

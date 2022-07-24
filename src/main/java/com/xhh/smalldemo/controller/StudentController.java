@@ -19,7 +19,7 @@ public class StudentController {
     @Resource
     StudentService studentService;
     
-    @GetMapping("/student")
+    @GetMapping()
     public ResultVO index(@RequestParam(value = "p", defaultValue = "1") int p,
                           @RequestParam(value = "s", defaultValue = "30") int s,
                           @RequestParam(value = "searchValue", required = false) String searchValue){
@@ -61,6 +61,23 @@ public class StudentController {
         } catch (Exception e){
             log.error("保存失败",e);
             resultVO = resultVO.failure();
+        }
+        
+        return resultVO;
+    }
+    
+    @PutMapping("/{id}")
+    public ResultVO update(@PathVariable(value = "id") Long studentId,
+                           @RequestParam(value = "studentName", required = false) String studentName,
+                           @RequestParam(value = "studentCode", required = false) String studentCode){
+        ResultVO resultVO = new ResultVO();
+        resultVO.setStatus(1);
+        try {
+            studentService.updateStudent(studentId, studentName, studentCode);
+            resultVO.getResult().put("id", studentId);
+        } catch (Exception e){
+            resultVO = resultVO.failure();
+            log.error("update student fail, message:",e);
         }
         
         return resultVO;

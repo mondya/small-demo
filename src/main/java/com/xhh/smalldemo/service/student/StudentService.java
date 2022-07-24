@@ -11,4 +11,6 @@ public interface StudentService {
     void insertOneStudent(String code, String name);
     
     Student getOne(Long studentId);
+    
+    void updateStudent(Long studentId, String name, String code);
 }
