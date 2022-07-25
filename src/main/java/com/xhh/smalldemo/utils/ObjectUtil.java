@@ -49,14 +49,14 @@ public class ObjectUtil {
             //判断是否有更改
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 String key = entry.getKey();
-                if (Objects.equals(entry.getValue(), checkMap.get(key))) {
+                if (!Objects.equals(entry.getValue(), checkMap.get(key))) {
 //                if (!entry.getValue().equals(checkMap.get(key))){
 //                if (entry.getValue() != checkMap.get(key)) {
                     return true;
                 }
 //                System.out.println(entry.getValue().equals(checkMap.get(key)));
             }
-
+            
 
         } catch (Exception e) {
             log.error("ObjectUtils checkChange method fail, message:", e);

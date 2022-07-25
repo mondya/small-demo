@@ -1,9 +1,6 @@
 package com.xhh.smalldemo.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +19,9 @@ public class Student {
     private String name;
     private String code;
     private Byte status;
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime dateCreated;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime lastUpdated;
     
     // 建造者模式

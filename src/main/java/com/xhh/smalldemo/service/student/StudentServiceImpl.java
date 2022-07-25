@@ -38,8 +38,7 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public void insertOneStudent(String code, String name) {
-        Student student = new Student.Builder().code(code).name(name).dateCreated(LocalDateTime.now()).
-                lastUpdated(LocalDateTime.now()).status((byte)1).build();
+        Student student = new Student.Builder().code(code).name(name).status((byte)1).build();
         
         this.saveStudent(student);
     }
@@ -56,11 +55,10 @@ public class StudentServiceImpl implements StudentService{
         map.put("name", name);
         map.put("code", code);
         if (ObjectUtil.checkChange(student, map)){
-            student.setLastUpdated(LocalDateTime.now());
-        } else {
-            return;
+            student.setName(name);
+            student.setCode(code);
+            studentMapper.updateById(student);
         }
-        studentMapper.updateById(student);
     }
 
     @Transactional(rollbackFor = Exception.class)
