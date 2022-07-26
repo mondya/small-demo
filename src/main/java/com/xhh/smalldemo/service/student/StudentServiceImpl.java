@@ -28,6 +28,7 @@ public class StudentServiceImpl implements StudentService{
         QueryWrapper<Student> queryWrapper = new QueryWrapper<Student>();
         queryWrapper.eq("status", (byte)1);
         if (StringUtils.isNotBlank(searchValue)){
+            // 添加一个括号内查询
             queryWrapper.and( i -> i.like("name", searchValue).or().like("code", searchValue));
         }
         IPage<Student> iPage = studentMapper.selectPage(page, queryWrapper);
@@ -57,12 +58,17 @@ public class StudentServiceImpl implements StudentService{
         if (ObjectUtil.checkChange(student, map)){
             student.setName(name);
             student.setCode(code);
-            studentMapper.updateById(student);
+            this.updateStudent(student);
         }
     }
 
     @Transactional(rollbackFor = Exception.class)
     void saveStudent(Student student){
         studentMapper.insert(student);
+    }
+    
+    @Transactional(rollbackFor = Exception.class)
+    void updateStudent(Student student){
+        studentMapper.updateById(student);
     }
 }
