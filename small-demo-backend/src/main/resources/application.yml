@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active: prd
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+mybatis-plus:
+  # classpath*:扫描该包下的所有xml文件，匹配通配符；classpath:只匹配扫描到的第一个文件
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 设置表的插入策略和更新策略，默认字段为空值不会更新
+      insert-strategy: ignored
+      update-strategy: ignored
+
+rocketmq:
+  accessKey: xxx
+  secretKey: xxx
+  nameSrvAddr: xxx
+  topic: xxx
+  groupId: xxx
+  tag: xxx
+  
+---
+xxl:
+  job:
+    admin:
+      addresses: http://localhost:8084/xxl-job-admin
+    accessToken: default_token
+    executor:
+      appname: small-demo-backend
+      address:
+      ip: 127.0.0.1
+      port: 9999
+      logpath: logs/xxl-job/jobhandler
+      logretentiondays: 30
+        
+  

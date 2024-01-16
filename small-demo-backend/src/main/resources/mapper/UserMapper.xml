@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xhh.smalldemobackend.mapper.UserMapper">
+    <insert id="addUser" parameterType="com.xhh.smalldemocommon.pojo.User">
+        INSERT INTO user(name,age,email,date_created,last_updated,status) values (#{u.name,jdbcType=VARCHAR},#{u.age, jdbcType=INTEGER},#{u.email, jdbcType=VARCHAR},#{u.dateCreated, jdbcType = TIMESTAMP},#{u.lastUpdated, jdbcType = TIMESTAMP},#{u.status, jdbcType=TINYINT})
+    </insert>
+    
+    <update id="updateUserAgeAndNameAndEmail">
+        UPDATE user SET age = #{age, jdbcType = INTEGER}, name = #{name, jdbcType = VARCHAR}, email = #{email, jdbcType = VARCHAR} , last_updated = NOW() WHERE id = #{id, jdbcType = BIGINT}
+    </update>
+    
+</mapper>

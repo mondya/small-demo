@@ -1,0 +1,54 @@
+//buildscript {
+//
+//
+//    //设置仓库
+//    repositories {
+//        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+//        maven { url 'https://repo.spring.io/milestone'}
+//    }
+//
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//    }
+//}
+//
+//repositories {
+//    mavenCentral()
+//}
+//
+//
+//apply plugin: 'java'
+//apply plugin: 'java-library'
+//apply plugin: 'org.springframework.boot'
+//apply plugin: 'io.spring.dependency-management'
+//apply plugin: 'groovy'
+//apply plugin: "idea"
+
+group = 'small-demo-backend'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_17
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+dependencies {
+    implementation (project(":small-demo-common")) {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-security'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.data:spring-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // https://mvnrepository.com/artifact/com.xuxueli/xxl-job-core
+    implementation group: 'com.xuxueli', name: 'xxl-job-core', version: '2.4.0'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    implementation 'org.springframework.boot:spring-boot-starter-freemarker'
+
+}

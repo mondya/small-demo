@@ -1,0 +1,49 @@
+buildscript {
+
+    //设置仓库
+    repositories {
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://repo.spring.io/milestone'}
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'groovy'
+apply plugin: "idea"
+
+version '1.0'
+group 'small-demo'
+apply from : 'version.gradle'
+
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'groovy'
+    apply plugin: "idea"
+
+    repositories {
+        mavenCentral()
+    }
+    
+    
+    
+    
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-aop'
+        implementation 'org.springframework.data:spring-data-redis'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        implementation "mysql:mysql-connector-java:${jarVersion.mysql}"
+    }
+}

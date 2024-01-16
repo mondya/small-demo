@@ -1,0 +1,4 @@
+rootProject.name = 'small-demo'
+include 'small-demo-backend'
+include 'small-demo-common'
+include 'small-demo-xxl-admin'

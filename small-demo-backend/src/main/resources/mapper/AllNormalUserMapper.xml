@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xhh.smalldemobackend.mapper.AllNormalUserMapper">
+    <select id="findAll" resultType="com.xhh.smalldemocommon.pojo.AllNormalUser">
+        select * from all_normal_user;
+    </select>
+</mapper>
