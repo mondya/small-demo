@@ -27,24 +27,13 @@ version = '0.1'
 sourceCompatibility = JavaVersion.VERSION_17
 
 dependencies {
-    implementation "mysql:mysql-connector-java:8.0.30"
-    api 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
-    implementation 'org.projectlombok:lombok:1.18.24'
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
-    implementation 'com.google.guava:guava:31.1-jre'
-    implementation group: 'org.apache.poi', name: 'poi-excelant', version: '4.1.0'
-    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.1'
-    implementation group: 'org.apache.poi', name: 'ooxml-schemas', version: '1.4'
-    implementation group: 'org.apache.poi', name: 'poi-scratchpad', version: '5.2.0'
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation "io.springfox:springfox-swagger2:2.9.2"
     implementation 'com.aliyun.oss:aliyun-sdk-oss:3.15.1'
     // springSecurity
-    implementation 'org.springframework.boot:spring-boot-starter-security:2.6.7'
-
-    implementation 'com.alibaba.fastjson2:fastjson2:2.0.10'
+    
     // hutool
 //    implementation 'cn.hutool:hutool-all-4.5.7'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // JWT
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
@@ -64,9 +53,6 @@ dependencies {
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
 
     implementation 'org.apache.httpcomponents:httpcore:4.4.14'
-// https://mvnrepository.com/artifact/joda-time/joda-time
-    implementation group: 'joda-time', name: 'joda-time', version: '2.3'
-
 }
 
 

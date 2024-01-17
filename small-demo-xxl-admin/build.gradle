@@ -39,14 +39,14 @@ dependencies {
     implementation (project(":small-demo-common")) {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-security'
     }
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-aop'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'org.springframework.data:spring-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     // https://mvnrepository.com/artifact/com.xuxueli/xxl-job-core
-    implementation group: 'com.xuxueli', name: 'xxl-job-core', version: '2.4.0'
+    // https://mvnrepository.com/artifact/com.xuxueli/xxl-job-core
+    implementation (group: 'com.xuxueli', name: 'xxl-job-core', version: '2.4.0') {
+        //org.codehaus.groovy:groovy:3.0.10
+        exclude group: 'org.apache.groovy', module: 'groovy'
+    }
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     implementation 'org.springframework.boot:spring-boot-starter-freemarker'
