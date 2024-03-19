@@ -72,6 +72,8 @@ dependencies {
         //org.codehaus.groovy:groovy:3.0.10
         exclude group: 'org.apache.groovy', module: 'groovy'
     }
+    
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
 }
 
