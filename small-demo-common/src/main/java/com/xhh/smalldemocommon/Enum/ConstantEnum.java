@@ -1,4 +1,4 @@
-package com.xhh.smalldemobackend.Enum;
+package com.xhh.smalldemocommon.Enum;
 
 public class ConstantEnum {
 
