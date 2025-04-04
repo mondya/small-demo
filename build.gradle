@@ -2,12 +2,18 @@ buildscript {
 
     //设置仓库
     repositories {
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'https://repo.spring.io/milestone'}
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/spring/'}
+        maven { url 'https://maven.aliyun.com/repository/google/'}
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/'}
+        maven { url 'https://maven.aliyun.com/repository/spring-plugin/'}
+        maven { url 'https://maven.aliyun.com/repository/grails-core/'}
+        maven { url 'https://maven.aliyun.com/repository/apache-snapshots/'}
     }
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("com.gradleup.shadow:shadow-gradle-plugin:7.1.2")
     }
 }
 
@@ -17,6 +23,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'groovy'
 apply plugin: "idea"
+apply plugin: "com.gradleup.shadow"
 
 version '1.0'
 group 'small-demo'
