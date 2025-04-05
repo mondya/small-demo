@@ -1,28 +1,4 @@
-//buildscript {
-//    
-//
-//    //设置仓库
-//    repositories {
-//        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-//        maven { url 'https://repo.spring.io/milestone'}
-//    }
-//
-//    dependencies {
-//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-//    }
-//}
-//
-//repositories {
-//    mavenCentral()
-//}
-//
-//
-//apply plugin: 'java'
-//apply plugin: 'java-library'
-//apply plugin: 'org.springframework.boot'
-//apply plugin: 'io.spring.dependency-management'
-//apply plugin: 'groovy'
-//apply plugin: "idea"
+
 
 group = 'small-demo-backend'
 version = '0.1'
@@ -93,11 +69,43 @@ sourceSets {
     }
 }
 
+jar.enabled = false
+
 bootJar {
     manifest {
         attributes 'Start-Class': 'com.xhh.smalldemobackend.SmallDemoBackendApplication'
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+// 任务2: 自定义打包（跳过启动类并排除指定包）
+task customBootJar(type: org.springframework.boot.gradle.tasks.bundling.BootJar) {
+    archiveClassifier = ''  // 与bootJar同名
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    // 关键配置：跳过启动类
+    mainClass = 'invalid'  // 设置为无效值以绕过 Spring Boot 检测
+    classpath = sourceSets.main.runtimeClasspath
+
+    // 排除指定包（示例：排除 service 和 util 包）
+    exclude(
+            'com/xhh/smalldemobackend/service/​**​',
+            'com/xhh/smalldemobackend/util/​**​'
+    )
+
+    // 清理 Manifest 中的 Spring Boot 启动属性
+    manifest {
+        attributes.clear()
+        attributes.put('Main-Class', 'invalid')
+    }
+
+    dependsOn bootJar  // 确保 bootJar 先执行
+}
+
+gradle.taskGraph.whenReady { graph ->
+    if (graph.hasTask(customBootJar)) {
+        bootJar.enabled = false
+    }
 }
 
 tasks.named('test') {

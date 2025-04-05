@@ -10,8 +10,11 @@ buildscript {
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath 'com.gradleup.shadow:shadow-gradle-plugin:7.1.2'
     }
+}
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 apply plugin: 'java'
@@ -34,6 +37,7 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'groovy'
     apply plugin: "idea"
+    apply plugin: "com.github.johnrengelman.shadow"
 
     repositories {
         mavenCentral()
