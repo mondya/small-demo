@@ -87,10 +87,10 @@ task customBootJar(type: org.springframework.boot.gradle.tasks.bundling.BootJar)
     mainClass = 'invalid'  // 设置为无效值以绕过 Spring Boot 检测
     classpath = sourceSets.main.runtimeClasspath
 
-    // 排除指定包（示例：排除 service 和 util 包）
+    // 排除指定包或者指定class）
     exclude(
-            'com/xhh/smalldemobackend/service/​**​',
-            'com/xhh/smalldemobackend/util/​**​'
+//            'com/xhh/smalldemobackend/service/env/*.class',
+//            'com/xhh/smalldemobackend/service/excel/*.class'
     )
 
     // 清理 Manifest 中的 Spring Boot 启动属性
